@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Monitoring</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <button id="logout-btn" class="logout-button" onclick="logout()">Logout</button>
+    <h1>Weather Monitoring System</h1>
+    <label id="unit-toggle" class="unit-toggle">
+        Temperature Unit:
+        <select id="unit-select" onchange="toggleUnit()">
+            <option value="Celsius">Celsius</option>
+            <option value="Kelvin">Kelvin</option>
+        </select>
+    </label>      
+
+    <div class="card-container">
+        <!-- City Weather Cards with Threshold Inputs and Alerts -->
+        <div id="city-card-Delhi" class="card">
+            <div class="city-name">Delhi</div>
+            <div class="weather-field" id="weather-main-Delhi"></div>
+            <div class="weather-field" id="weather-temp-Delhi"></div>
+            <div class="weather-field" id="weather-feels-like-Delhi"></div>
+            <div class="weather-field" id="weather-dt-Delhi"></div>
+
+            <label for="threshold-Delhi">Set Temperature Threshold (°C):</label>
+            <input type="number" id="threshold-Delhi" />
+            <div>
+                <button onclick="setCityThreshold('Delhi')">Set Threshold</button>
+                <button style="background-color: red;" onclick="removeCityThreshold('Delhi')">Remove Threshold</button>
+            </div>
+            <div id="alert-Delhi" class="alert">Temperature crossed threshold!</div>
+            <button onclick="getCitySummary('Delhi')">Get Summary</button>
+        </div>
+
+        <div id="city-card-Mumbai" class="card">
+            <div class="city-name">Mumbai</div>
+            <div class="weather-field" id="weather-main-Mumbai"></div>
+            <div class="weather-field" id="weather-temp-Mumbai"></div>
+            <div class="weather-field" id="weather-feels-like-Mumbai"></div>
+            <div class="weather-field" id="weather-dt-Mumbai"></div>
+
+            <label for="threshold-Mumbai">Set Temperature Threshold (°C):</label>
+            <input type="number" id="threshold-Mumbai" />
+            <div>
+                <button onclick="setCityThreshold('Mumbai')">Set Threshold</button>
+                <button style="background-color: red;" onclick="removeCityThreshold('Mumbai')">Remove Threshold</button>
+            </div>
+            <div id="alert-Mumbai" class="alert">Temperature crossed threshold!</div>
+            <button onclick="getCitySummary('Mumbai')">Get Summary</button>
+        </div>
+
+        <div id="city-card-Chennai" class="card">
+            <div class="city-name">Chennai</div>
+            <div class="weather-field" id="weather-main-Chennai"></div>
+            <div class="weather-field" id="weather-temp-Chennai"></div>
+            <div class="weather-field" id="weather-feels-like-Chennai"></div>
+            <div class="weather-field" id="weather-dt-Chennai"></div>
+
+            <label for="threshold-Chennai">Set Temperature Threshold (°C):</label>
+            <input type="number" id="threshold-Chennai" />
+            <div>
+                <button onclick="setCityThreshold('Chennai')">Set Threshold</button>
+                <button style="background-color: red;" onclick="removeCityThreshold('Chennai')">Remove Threshold</button>
+            </div>
+            <div id="alert-Chennai" class="alert">Temperature crossed threshold!</div>
+            <button onclick="getCitySummary('Chennai')">Get Summary</button>
+        </div>
+
+        <div id="city-card-Bangalore" class="card">
+            <div class="city-name">Bangalore</div>
+            <div class="weather-field" id="weather-main-Bangalore"></div>
+            <div class="weather-field" id="weather-temp-Bangalore"></div>
+            <div class="weather-field" id="weather-feels-like-Bangalore"></div>
+            <div class="weather-field" id="weather-dt-Bangalore"></div>
+
+            <label for="threshold-Bangalore">Set Temperature Threshold (°C):</label>
+            <input type="number" id="threshold-Bangalore" />
+            <div>
+                <button onclick="setCityThreshold('Bangalore')">Set Threshold</button>
+                <button style="background-color: red;" onclick="removeCityThreshold('Bangalore')">Remove Threshold</button>
+            </div>
+            <div id="alert-Bangalore" class="alert">Temperature crossed threshold!</div>
+            <button onclick="getCitySummary('Bangalore')">Get Summary</button>
+        </div>
+
+        <div id="city-card-Kolkata" class="card">
+            <div class="city-name">Kolkata</div>
+            <div class="weather-field" id="weather-main-Kolkata"></div>
+            <div class="weather-field" id="weather-temp-Kolkata"></div>
+            <div class="weather-field" id="weather-feels-like-Kolkata"></div>
+            <div class="weather-field" id="weather-dt-Kolkata"></div>
+
+            <label for="threshold-Kolkata">Set Temperature Threshold (°C):</label>
+            <input type="number" id="threshold-Kolkata" />
+            <div>
+                <button onclick="setCityThreshold('Kolkata')">Set Threshold</button>
+                <button style="background-color: red;" onclick="removeCityThreshold('Kolkata')">Remove Threshold</button>
+            </div>
+            <div id="alert-Kolkata" class="alert">Temperature crossed threshold!</div>
+            <button onclick="getCitySummary('Kolkata')">Get Summary</button>
+        </div>
+
+        <div id="city-card-Hyderabad" class="card">
+            <div class="city-name">Hyderabad</div>
+            <div class="weather-field" id="weather-main-Hyderabad"></div>
+            <div class="weather-field" id="weather-temp-Hyderabad"></div>
+            <div class="weather-field" id="weather-feels-like-Hyderabad"></div>
+            <div class="weather-field" id="weather-dt-Hyderabad"></div>
+
+            <label for="threshold-Hyderabad">Set Temperature Threshold (°C):</label>
+            <input type="number" id="threshold-Hyderabad" />
+            <div>
+                <button onclick="setCityThreshold('Hyderabad')">Set Threshold</button>
+                <button style="background-color: red;" onclick="removeCityThreshold('Hyderabad')">Remove Threshold</button>
+            </div>
+            <div id="alert-Hyderabad" class="alert">Temperature crossed threshold!</div>
+            <button onclick="getCitySummary('Hyderabad')">Get Summary</button>
+        </div>
+    </div>
+
+    <!-- Daily Weather Summary -->
+    <div class="summary" style="display: none;" id="daily-summary">
+        <h2>Daily Weather Summary</h2>
+        <div id="summary-content" class="summary-content"></div>
+    </div>
+
+    <script src="/static/weather.js"></script>
+</body>
+</html>
